@@ -497,7 +497,7 @@ OG_GITEA_SECRET=""
 OG_GITHUB_CLIENT_KEY=""
 OG_GITHUB_SECRET=""
 OG_OPENGIST_HOME="/config/opengist"
-OG_DB_FILENAME="/data/db/sqlite3/opengist.db"
+#OG_DB_FILENAME="/data/db/sqlite3/opengist.db"
 OG_HTTP_CERT_FILE=""
 OG_HTTP_KEY_FILE=""
 
