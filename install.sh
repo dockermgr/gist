@@ -367,7 +367,7 @@ CONTAINER_IS_NEWS_SERVER="no"
 # Database settings - [listen] [yes/no]
 CONTAINER_DATABASE_LISTEN=""
 CONTAINER_REDIS_ENABLED=""
-CONTAINER_SQLITE3_ENABLED="yes"
+CONTAINER_SQLITE3_ENABLED=""
 CONTAINER_MARIADB_ENABLED=""
 CONTAINER_MONGODB_ENABLED=""
 CONTAINER_COUCHDB_ENABLED=""
@@ -463,7 +463,7 @@ CONTAINER_DEBUG_ENABLED="no"
 CONTAINER_DEBUG_OPTIONS=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # additional directories to create - [/config/dir1,/data/dir2]
-CONTAINER_CREATE_DIRECTORY="/data/$APPNAME,/config/$APPNAME"
+CONTAINER_CREATE_DIRECTORY="/data/$APPNAME,/config/$APPNAME,/data/db/sqlite3"
 CONTAINER_CREATE_DIRECTORY+=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # enable cron jobs
@@ -497,7 +497,7 @@ OG_GITEA_SECRET=""
 OG_GITHUB_CLIENT_KEY=""
 OG_GITHUB_SECRET=""
 OG_OPENGIST_HOME="/config/opengist"
-OG_DB_FILENAME="$DATABASE_DIR_SQLITE3/opengist.db"
+OG_DB_FILENAME="/data/db/sqlite3/opengist.db"
 OG_HTTP_CERT_FILE=""
 OG_HTTP_KEY_FILE=""
 
