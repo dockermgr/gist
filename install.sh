@@ -9,7 +9,7 @@
 # @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
 # @@Created          :  Sunday, Aug 06, 2023 21:23 EDT
 # @@File             :  install.sh
-# @@Description      :  Container installer script for opengist
+# @@Description      :  Container installer script for gist
 # @@Changelog        :  New script
 # @@TODO             :  Completely rewrite/refactor/variable cleanup
 # @@Other            :
@@ -26,7 +26,7 @@
 # shellcheck disable=SC2199
 # shellcheck disable=SC2317
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-APPNAME="opengist"
+APPNAME="gist"
 VERSION="202308062123-git"
 REPO_BRANCH="${GIT_REPO_BRANCH:-main}"
 HOME="${USER_HOME:-$HOME}"
@@ -64,16 +64,16 @@ fi
 scripts_check
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Repository variables
-REPO="${DOCKERMGRREPO:-https://github.com/$SCRIPTS_PREFIX}/opengist"
+REPO="${DOCKERMGRREPO:-https://github.com/$SCRIPTS_PREFIX}/gist"
 APPVERSION="$(__appversion "$REPO/raw/$REPO_BRANCH/version.txt")"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Defaults variables
-APPNAME="opengist"
-export INSTDIR="$HOME/.local/share/CasjaysDev/$SCRIPTS_PREFIX/opengist"
+APPNAME="gist"
+export INSTDIR="$HOME/.local/share/CasjaysDev/$SCRIPTS_PREFIX/gist"
 export DOCKERMGR_CONFIG_DIR="${DOCKERMGR_CONFIG_DIR:-$HOME/.config/myscripts/$SCRIPTS_PREFIX}"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set the mountpoint directory
-export APPDIR="$HOME/.local/share/srv/docker/opengist"
+export APPDIR="$HOME/.local/share/srv/docker/gist"
 export DATADIR="$APPDIR/rootfs"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Call the main function
@@ -210,7 +210,7 @@ CONTAINER_SSL_CRT=""
 CONTAINER_SSL_KEY=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # URL to container image - docker pull - [URL]
-HUB_IMAGE_URL="casjaysdevdocker/opengist"
+HUB_IMAGE_URL="casjaysdevdocker/gist"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # image tag - [docker pull HUB_IMAGE_URL:tag]
 HUB_IMAGE_TAG="latest"
@@ -302,7 +302,7 @@ HOST_X11_XAUTH=""
 CONTAINER_X11_SOCKET="/tmp/.X11-unix"
 CONTAINER_X11_XAUTH="/home/x11user/.Xauthority"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Set container hostname and domain - Default: [opengist.$SET_HOST_FULL_NAME] [$SET_HOST_FULL_DOMAIN]
+# Set container hostname and domain - Default: [gist.$SET_HOST_FULL_NAME] [$SET_HOST_FULL_DOMAIN]
 CONTAINER_HOSTNAME=""
 CONTAINER_DOMAINNAME=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -496,8 +496,8 @@ OG_GITEA_CLIENT_KEY=""
 OG_GITEA_SECRET=""
 OG_GITHUB_CLIENT_KEY=""
 OG_GITHUB_SECRET=""
-OG_OPENGIST_HOME="/config/opengist"
-#OG_DB_FILENAME="/data/db/sqlite3/opengist.db"
+OG_OPENGIST_HOME="/config/gist"
+#OG_DB_FILENAME="/data/db/sqlite3/gist.db"
 OG_HTTP_CERT_FILE=""
 OG_HTTP_KEY_FILE=""
 
@@ -1181,7 +1181,7 @@ if __is_server && [ -z "$CONTAINER_HOSTNAME" ]; then
 else
   CONTAINER_DOMAINNAME="${CONTAINER_DOMAINNAME:-$SET_HOST_FULL_DOMAIN}"
 fi
-CONTAINER_HOSTNAME="${CONTAINER_HOSTNAME:-${APPNAME:-opengist}}"
+CONTAINER_HOSTNAME="${CONTAINER_HOSTNAME:-${APPNAME:-gist}}"
 echo "$CONTAINER_HOSTNAME" | grep -q "$CONTAINER_DOMAINNAME" || CONTAINER_HOSTNAME="$CONTAINER_HOSTNAME.$CONTAINER_DOMAINNAME"
 if [ -n "$CONTAINER_HOSTNAME" ]; then
   DOCKER_SET_OPTIONS+=("--hostname $CONTAINER_HOSTNAME")
@@ -1494,25 +1494,25 @@ if [ "$CONTAINER_DATABASE_ENABLED" = "yes" ]; then
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # containers username and password configuration
-if [ -n "$OPENGIST_USERNAME" ]; then
-  CONTAINER_USER_NAME="$OPENGIST_USERNAME"
+if [ -n "$GIST_USERNAME" ]; then
+  CONTAINER_USER_NAME="$GIST_USERNAME"
 fi
 if [ -n "$CONTAINER_USER_NAME" ]; then
-  CONTAINER_USER_NAME="${OPENGIST_USERNAME:-${CONTAINER_USER_NAME:-$DEFAULT_USERNAME}}"
+  CONTAINER_USER_NAME="${GIST_USERNAME:-${CONTAINER_USER_NAME:-$DEFAULT_USERNAME}}"
 fi
 if [ -n "$CONTAINER_USER_NAME" ]; then
   if [ -n "$CONTAINER_ENV_USER_NAME" ]; then
     DOCKER_SET_OPTIONS+=("--env ${CONTAINER_ENV_USER_NAME:-username}=\"$CONTAINER_USER_NAME\"")
   fi
 fi
-if [ -n "$OPENGIST_PASSWORD" ]; then
-  CONTAINER_USER_PASS="$OPENGIST_PASSWORD"
+if [ -n "$GIST_PASSWORD" ]; then
+  CONTAINER_USER_PASS="$GIST_PASSWORD"
 fi
 if [ -n "$CONTAINER_USER_PASS" ]; then
   if [ "$CONTAINER_USER_PASS" = "random" ]; then
     CONTAINER_USER_PASS="$(__password "${CONTAINER_PASS_LENGTH:-16}")"
   fi
-  CONTAINER_USER_PASS="${OPENGIST_PASSWORD:-${CONTAINER_USER_PASS:-$DEFAULT_PASSWORD}}"
+  CONTAINER_USER_PASS="${GIST_PASSWORD:-${CONTAINER_USER_PASS:-$DEFAULT_PASSWORD}}"
 fi
 if [ -n "$CONTAINER_USER_PASS" ]; then
   if [ -n "$CONTAINER_ENV_PASS_NAME" ]; then
