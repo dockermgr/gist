@@ -12,8 +12,8 @@
 # @@Description      :  Container installer script for gist
 # @@Changelog        :  New script
 # @@TODO             :  Completely rewrite/refactor/variable cleanup
-# @@Other            :  
-# @@Resource         :  
+# @@Other            :
+# @@Resource         :
 # @@Terminal App     :  no
 # @@sudo/root        :  no
 # @@Template         :  installers/dockermgr
@@ -357,7 +357,7 @@ HOST_NGINX_INTERNAL_DOMAIN=""
 HOST_NGINX_INTERNAL_HOST=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Enable this if container is running a webserver - [yes/no] [internalPort] [yes/no] [yes/no] [listen]
-CONTAINER_WEB_SERVER_ENABLED="no"
+CONTAINER_WEB_SERVER_ENABLED="yes"
 CONTAINER_WEB_SERVER_INT_PORT="80"
 CONTAINER_WEB_SERVER_SSL_ENABLED="no"
 CONTAINER_WEB_SERVER_AUTH_ENABLED="no"
@@ -397,7 +397,7 @@ CONTAINER_DATABASE_CREATE=""
 # Database settings - [listen] [yes/no]
 CONTAINER_DATABASE_LISTEN=""
 CONTAINER_REDIS_ENABLED="no"
-CONTAINER_SQLITE_ENABLED="no"
+CONTAINER_SQLITE_ENABLED="yes"
 CONTAINER_MARIADB_ENABLED="no"
 CONTAINER_MONGODB_ENABLED="no"
 CONTAINER_COUCHDB_ENABLED="no"
